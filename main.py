@@ -1,7 +1,8 @@
-from view import display_title, quit
+from view import display_title, quit, clear_terminal
 from stock import stock_menu
 from employee import employee_menu
 from sales import sales_menu
+import os
 
 def main():
     action_list = {"1": stock_menu, "2": employee_menu, "3": sales_menu, "4": quit}
@@ -15,7 +16,9 @@ def main():
         if action in action_list:
             action_list[action]() #Chama a ação escolhida
         else:
+            clear_terminal()
             print("A ação escolhida é inválida!")
+            
     
 if __name__ == "__main__":
     display_title()

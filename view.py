@@ -16,6 +16,9 @@ def display_subtitle(msg):
     print(lines)
     print(f"\n{msg}")
     print(lines)
+    
+def clear_terminal():
+    os.system("cls") if os.name == "nt" else os.system("clear")
 
 def quit():
     print("Encerrando o programa...")
