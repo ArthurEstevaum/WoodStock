@@ -1,14 +1,26 @@
 import os
 import json
-from product_repository import ProductRepository
-from entities.product import Product
-from entities.batch import Batch
 import datetime
+import time
+from view import display_title, quit
+from stock import stock_menu
+from employee import employee_menu
+from sales import sales_menu
 
 def main():
-    product = ProductRepository().find_last()
-    print(f"Código: {product.id}, nome: {product.name}, descrição: {product.description}")
-    print(product.quantity)
+    action_list = {"1": stock_menu, "2": "Módulo de Funcionários", "3": "Módulo de Vendas", "4": quit}
+    while True:
+        action = input("""Seja bem vindo ao WoodStock! escolha uma ação:
+[1] Módulo de Estoque
+[2] Módulo de Funcionários
+[3] Módulo de Vendas
+[4] Sair
+""")
+        if action in action_list:
+            action_list[action]() #Chama a ação escolhida
+        else:
+            print("A ação escolhida é inválida!")
     
 if __name__ == "__main__":
+    display_title()
     main()
