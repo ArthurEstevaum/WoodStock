@@ -2,7 +2,6 @@ import os
 from view import display_subtitle
 
 def stock_menu():
-    
     while True:
         display_subtitle("Módulo de Estoque")
         
