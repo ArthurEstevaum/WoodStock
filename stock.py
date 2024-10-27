@@ -32,7 +32,17 @@ def create_product():
 def update_product():
     pass
 def remove_product():
-    pass 
+    clear_terminal()
+    display_subtitle("Cadastro de produtos")
+    
+    id = int(input("Digite o código do produto: "))
+    products = load_data("products")
+    product_to_remove = products[id - 1]
+    products.pop(products.index(product_to_remove))
+    write_data("products", products)
+    
+    input("Digite qualquer tecla para voltar para o módulo de estoque")
+    stock_menu()
 
 def stock_menu():
     action_list = {"1": display_product_list, "2": create_product, "3": update_product, "4": remove_product}
