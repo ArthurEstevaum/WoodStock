@@ -4,13 +4,23 @@ from datetime import datetime
 
 arquivo = os.path.join(os.path.dirname(__file__), 'funcionarios.json')
 
+def limpar_tela():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 def carregar_funcionarios():
     if not os.path.exists(arquivo):
         with open(arquivo, 'w') as f:
             json.dump([], f, indent=4)
     
     with open(arquivo, 'r') as f:
-        return json.load(f)
+        try:
+            funcionarios = json.load(f)
+            print("Funcionários carregados:", funcionarios)  # Depuração
+            return funcionarios
+        except json.JSONDecodeError:
+            print("Erro ao carregar o arquivo JSON.")
+            return []
+
 def adicionar_funcionario():
     funcionarios = carregar_funcionarios()
     cpf = input("Digite o CPF do funcionário: ")
@@ -21,13 +31,14 @@ def adicionar_funcionario():
 
     nome = input("Digite o nome do funcionário: ")
     cargo = input("Digite o cargo do funcionário: ")
-    data_contratacao = input("Digite a data de contratação (DD/MM/AAAA): ")
     
-    try:
-        datetime.strptime(data_contratacao, "%d/%m/%Y")
-    except ValueError:
-        print("Data de contratação inválida! Use o formato DD/MM/AAAA.")
-        return
+    while True:
+        data_contratacao = input("Digite a data de contratação (DD/MM/AAAA): ")
+        try:
+            datetime.strptime(data_contratacao, "%d/%m/%Y")
+            break  
+        except ValueError:
+            print("Data de contratação inválida! Use o formato DD/MM/AAAA.")
     
     try:
         salario = float(input("Digite o salário do funcionário: "))
@@ -51,6 +62,7 @@ def adicionar_funcionario():
 def listar_funcionarios():
     funcionarios = carregar_funcionarios()
     if funcionarios:
+        limpar_tela()
         print("\nLista de Funcionários:")
         print("-" * 50)
         for funcionario in funcionarios:
@@ -85,7 +97,7 @@ def atualizar_funcionario():
             break
 
     with open(arquivo, 'w') as f:
-        json.dump(funcionarios, f, indent=4, ensure_ascii=False)
+        json.dump(funcionarios, f, inden5t=4, ensure_ascii=False)
     print("Funcionário atualizado com sucesso.")
 
 def excluir_funcionario():
@@ -102,7 +114,9 @@ def buscar_funcionario():
     funcionarios = carregar_funcionarios()
     encontrado = False
     for funcionario in funcionarios:
+        
         if funcionario['cpf'] == cpf:
+            limpar_tela()
             print(f"CPF: {funcionario['cpf']}")
             print(f"Nome: {funcionario['nome']}")
             print(f"Cargo: {funcionario['cargo']}")
@@ -114,6 +128,7 @@ def buscar_funcionario():
         print("Funcionário não encontrado.")
 
 def menu():
+    limpar_tela()
     while True:
         print("\n==== MENU DE FUNCIONÁRIOS ====")
         print("1. Adicionar Funcionário")
@@ -126,14 +141,19 @@ def menu():
         opcao = input("Escolha uma opção: ")
 
         if opcao == '1':
+            limpar_tela()
             adicionar_funcionario()
         elif opcao == '2':
+            limpar_tela()
             listar_funcionarios()
         elif opcao == '3':
+            limpar_tela()
             atualizar_funcionario()
         elif opcao == '4':
+            limpar_tela()
             excluir_funcionario()
         elif opcao == '5':
+            limpar_tela()
             buscar_funcionario()
         elif opcao == '6':
             print("Saindo do sistema...")
