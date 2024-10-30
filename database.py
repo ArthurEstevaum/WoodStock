@@ -22,12 +22,12 @@ def write_data(dbname: str, list: List[dict]) -> bool:
         json.dump(list, file, indent=4, ensure_ascii=False)
         return True
 
-def search_by_id(dict_list: List[dict], id: int) -> dict | str:
+def search_by_id(dict_list: List[dict], id: int) -> dict | IndexError:
     low = 0
-    high = dict_list.size - 1
+    high = len(dict_list) - 1
 
     while (low <= high):
-        mid = (low + high) / 2
+        mid = int((low + high) / 2)
 
         if dict_list[mid]["id"] == id:
             return dict_list[mid]
@@ -35,4 +35,4 @@ def search_by_id(dict_list: List[dict], id: int) -> dict | str:
             low = mid + 1
         else:
             high = mid - 1
-    return "Nenhum valor com esse id foi encontrado"
+    raise IndexError
