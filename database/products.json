@@ -1,10 +1,10 @@
 [
     {
-        "id": 2,
-        "name": "ababababababa",
-        "description": "abababababab",
-        "entry_date": "ababababa",
-        "expiration_date": "abababba",
-        "exit_date": "ababa"
+        "id": 4,
+        "name": "Rolamento SKF",
+        "description": "Lorem ipsum",
+        "entry_date": "10/10/2010",
+        "expiration_date": "10/10/2010",
+        "exit_date": "10/10/2010"
     }
 ]

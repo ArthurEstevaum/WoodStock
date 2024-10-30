@@ -2,7 +2,6 @@ from view import display_title, quit, clear_terminal
 from stock import stock_menu
 from employee import employee_menu
 from sales import sales_menu
-import os
 
 def main():
     action_list = {"1": stock_menu, "2": employee_menu, "3": sales_menu, "4": quit}

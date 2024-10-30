@@ -1,31 +1,38 @@
 from database import load_data, write_data, search_by_id
 from view import display_subtitle, clear_terminal
+from time import sleep
 
 def display_product_list():
     clear_terminal()
     display_subtitle("Tabela de produtos")
     
     products = load_data("products")
+    print(f"\n{'Código'.ljust(10)} | {'Nome'.ljust(10)} | {'Descrição'.ljust(10)} | {'Data de entrada'.ljust(10)} | {'Data de validade'.ljust(10)} | {'Data de saída'.ljust(10)} |")
+    
     for product in products:
-        print(f"Código: {product['id']} | Nome: {product['name']} | Descrição: {product['description']} | Data de entrada: {product['entry_date']} | Data de validade: {product['expiration_date']} | Data de saída: {product['exit_date']}")
+        print(f"{str(product['id']).ljust(10)} | {product['name']} | {product['description']} | {product['entry_date']} | {product['expiration_date']} | {product['exit_date']}")
         
-    input("Digite qualquer tecla para voltar para o módulo de estoque")
+    input("\nDigite qualquer tecla para voltar para o módulo de estoque")
     stock_menu()
 
-def search_product() -> dict:
+def search_product():
     clear_terminal()
     display_subtitle("Informações do produto")
-    id = int(input("Digite o código do produto que deseja buscar: "))
+    id = int(input("\nDigite o código do produto que deseja buscar: "))
 
-    
     products = load_data("products")
-    product = search_by_id(products, id)
+    try:
+        product = search_by_id(products, id)
+    except IndexError:
+        print("\nNão conseguimos encontrar nenhum produto com este código...")
+        sleep(2)
+        stock_menu()
+        return None     
 
-    print(f"Código: {product['id']} | Nome: {product['name']} | Descrição: {product['description']} | Data de entrada: {product['entry_date']} | Data de validade: {product['expiration_date']} | Data de saída: {product['exit_date']}")
+    print(f"\nCódigo: {product['id']} | Nome: {product['name']} | Descrição: {product['description']} | Data de entrada: {product['entry_date']} | Data de validade: {product['expiration_date']} | Data de saída: {product['exit_date']}")
 
-    input("Digite qualquer tecla para voltar para o módulo de estoque")
+    input("\nDigite qualquer tecla para voltar para o módulo de estoque")
     stock_menu()
-
 
 def create_product():
     clear_terminal()
@@ -33,7 +40,7 @@ def create_product():
     
     products = load_data("products")
 
-    name = input("Digite o nome do produto: ")
+    name = input("\nDigite o nome do produto: ")
     description = input("Forneça a descrição do produto: ")
     entry_date = input("Forneça a data de entrada do produto: (DD/MM/AAAA)")
     expiration_date = input("Forneça a data de validade do produto: (DD/MM/AAAA)")
@@ -44,6 +51,7 @@ def create_product():
     products.append({"id": current_id, "name": name, "description": description, "entry_date": entry_date, "expiration_date": expiration_date, "exit_date": exit_date})
     write_data("products", products)
     
+    print("\nProduto criado com sucesso!")
     input("Digite qualquer tecla para voltar para o módulo de estoque")
     stock_menu()
 
@@ -51,53 +59,89 @@ def update_product():
     clear_terminal()
     display_subtitle("Atualizar Produto")
 
-    id = int(input("Digite o código do produto que deseja atualizar: "))
+    id = int(input("\nDigite o código do produto que deseja atualizar: "))
 
     products = load_data("products")
-    product = search_by_id(products, id)
+    try:
+        product = search_by_id(products, id)
+    except IndexError:
+        print("\nNão conseguimos encontrar nenhum produto com este código...")
+        sleep(2)
+        stock_menu()
+        return None
 
     name = input("Digite o nome do produto (Enter caso não queira atualizar): ")
     description = input("Forneça a descrição do produto (Enter caso não queira atualizar): ")
     entry_date = input("Forneça a data de entrada do produto (Enter caso não queira atualizar): (DD/MM/AAAA)")
     expiration_date = input("Forneça a data de validade do produto (Enter caso não queira atualizar): (DD/MM/AAAA)")
     exit_date = input("Forneça a data de saída do produto (Enter caso não queira atualizar): (DD/MM/AAAA)")
-
     
+    inputs = {
+        "name": name, 
+        "description": description, 
+        "entry_date": entry_date, 
+        "expiration_date": expiration_date,
+        "exit_date": exit_date
+    }
+    
+    for input_key, input_value in inputs.items():
+        if input_value:
+            product[input_key] = input_value
+    
+    index_of_product = products.index(product)
+    products[index_of_product] = product
+    
+    write_data("products", products)
 
-
-
-
+    print("\nProduto atualizado com sucesso!")
+    input("Pressione qualquer tecla para voltar ao módulo de estoque")
+    stock_menu()          
 
 def remove_product():
     clear_terminal()
     display_subtitle("Cadastro de produtos")
     
-    id = int(input("Digite o código do produto: "))
+    id = int(input("\nDigite o código do produto: "))
     products = load_data("products")
+    
     try:
-        products.pop(id)
+        product = search_by_id(products, id)
     except IndexError:
-        print("Produto não encontrado.")
+        print("\nNão conseguimos encontrar nenhum produto com este código...")
+        sleep(2)
+        stock_menu()
+        return None
+    
+    products.remove(product)
     write_data("products", products)
     
+    print("\nProduto removido com sucesso!")
     input("Digite qualquer tecla para voltar para o módulo de estoque")
     stock_menu()
 
 def stock_menu():
-    action_list = {"1": display_product_list, "2": create_product, "3": update_product, "4": remove_product}
+    action_list = {
+        "1": display_product_list, 
+        "2": search_product, 
+        "3": create_product, 
+        "4": update_product, 
+        "5": remove_product
+        }
     while True:
         display_subtitle("Módulo de Estoque")
         
         action = input("""
 [1] Ver lista de produtos
-[2] Cadastrar produto
-[3] Atualizar cadastro de produto 
-[4] Descontinuar produto
-[5] Voltar ao menu principal
+[2] Procurar produto
+[3] Cadastrar produto 
+[4] Atualizar cadastro de produto
+[5] Descontinuar produto
+[6] Voltar ao menu principal
 """)
         if action in action_list:
             action_list[action]()
-        elif action == "5":
+            break
+        elif action == "6":
             clear_terminal()
             break
         else:
