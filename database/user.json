@@ -1,1 +1,19 @@
+<<<<<<< HEAD
 []
+=======
+[
+    {
+        "name": "CR7",
+        "age": "47",
+        "cpf": "827.908.098-08",
+        "job": "CEO"
+    },
+    {
+        "name": "Thays",
+        "age": "18",
+        "cpf": "356.098.025-90",
+        "job": "marketing"
+    }
+
+]
+>>>>>>> dc24c51 (Add files via upload)
