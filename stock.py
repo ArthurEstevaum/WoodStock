@@ -1,4 +1,4 @@
-from database import load_data, write_data
+from database import load_data, write_data, search_by_id
 from view import display_subtitle, clear_terminal
 
 def display_product_list():
@@ -11,16 +11,33 @@ def display_product_list():
         
     input("Digite qualquer tecla para voltar para o módulo de estoque")
     stock_menu()
+
+def search_product() -> dict:
+    clear_terminal()
+    display_subtitle("Informações do produto")
+    id = int(input("Digite o código do produto que deseja buscar: "))
+
+    
+    products = load_data("products")
+    product = search_by_id(products, id)
+
+    print(f"Código: {product['id']} | Nome: {product['name']} | Descrição: {product['description']} | Data de entrada: {product['entry_date']} | Data de validade: {product['expiration_date']} | Data de saída: {product['exit_date']}")
+
+    input("Digite qualquer tecla para voltar para o módulo de estoque")
+    stock_menu()
+
+
 def create_product():
     clear_terminal()
     display_subtitle("Cadastro de produtos")
     
     products = load_data("products")
+
     name = input("Digite o nome do produto: ")
     description = input("Forneça a descrição do produto: ")
-    entry_date = input("Forneça a data de entrada do produto: ")
-    expiration_date = input("Forneça a data de validade do produto: ")
-    exit_date = input("Forneça a data de saída do produto: ")
+    entry_date = input("Forneça a data de entrada do produto: (DD/MM/AAAA)")
+    expiration_date = input("Forneça a data de validade do produto: (DD/MM/AAAA)")
+    exit_date = input("Forneça a data de saída do produto: (DD/MM/AAAA)")
     
     current_id = products[-1]["id"] + 1 if products != [] else 1
     
@@ -29,16 +46,38 @@ def create_product():
     
     input("Digite qualquer tecla para voltar para o módulo de estoque")
     stock_menu()
+
 def update_product():
-    pass
+    clear_terminal()
+    display_subtitle("Atualizar Produto")
+
+    id = int(input("Digite o código do produto que deseja atualizar: "))
+
+    products = load_data("products")
+    product = search_by_id(products, id)
+
+    name = input("Digite o nome do produto (Enter caso não queira atualizar): ")
+    description = input("Forneça a descrição do produto (Enter caso não queira atualizar): ")
+    entry_date = input("Forneça a data de entrada do produto (Enter caso não queira atualizar): (DD/MM/AAAA)")
+    expiration_date = input("Forneça a data de validade do produto (Enter caso não queira atualizar): (DD/MM/AAAA)")
+    exit_date = input("Forneça a data de saída do produto (Enter caso não queira atualizar): (DD/MM/AAAA)")
+
+    
+
+
+
+
+
 def remove_product():
     clear_terminal()
     display_subtitle("Cadastro de produtos")
     
     id = int(input("Digite o código do produto: "))
     products = load_data("products")
-    product_to_remove = products[id - 1]
-    products.pop(products.index(product_to_remove))
+    try:
+        products.pop(id)
+    except IndexError:
+        print("Produto não encontrado.")
     write_data("products", products)
     
     input("Digite qualquer tecla para voltar para o módulo de estoque")
