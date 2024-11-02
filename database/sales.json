@@ -1,0 +1,26 @@
+[
+    {
+        "id": 2,
+        "name": "asdasd",
+        "value_sales": "10000",
+        "entry_date": "16121996"
+    },
+    {
+        "id": 3,
+        "name": "bla blabla",
+        "value_sales": "12365",
+        "entry_date": "16/12/1996"
+    },
+    {
+        "id": 4,
+        "name": "asas",
+        "value_sales": "asass",
+        "entry_date": "asasas"
+    },
+    {
+        "id": 5,
+        "name": "bb",
+        "value_sales": "100",
+        "entry_date": ""
+    }
+]

@@ -1,7 +1,26 @@
 [
     {
-        "id": 1,
-        "name": "Rolamento sfk",
-        "description": "Rolamento cÃ´nico de esferas"
+        "id": 2,
+        "name": "ababababababa",
+        "description": "abababababab",
+        "entry_date": "ababababa",
+        "expiration_date": "abababba",
+        "exit_date": "ababa"
+    },
+    {
+        "id": 3,
+        "name": "blablabla",
+        "description": "blablabla",
+        "entry_date": "bçaçbça",
+        "expiration_date": "bçabçaçba",
+        "exit_date": "bçabçaçbaç"
+    },
+    {
+        "id": 4,
+        "name": "asd",
+        "description": "asd",
+        "entry_date": "asd",
+        "expiration_date": "asd",
+        "exit_date": "asd"
     }
 ]
