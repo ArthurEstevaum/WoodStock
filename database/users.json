@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Arthur Estevão",
+        "age": "20",
+        "cpf": "45678912302",
+        "job": "CTO"
+    },
+    {
+        "name": "Thays Barbosa",
+        "age": "19",
+        "cpf": "21343556678",
+        "job": "ADM"
+    },
+    {
+        "name": "Alvaro Antonio",
+        "age": "27",
+        "cpf": "4578721289",
+        "job": "Analista de Dados"
+    }
+]
