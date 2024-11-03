@@ -7,13 +7,20 @@ def display_product_list():
     display_subtitle("Tabela de produtos")
     
     products = load_data("products")
-    print(f"\n{'Código'.ljust(10)} | {'Nome'.ljust(10)} | {'Descrição'.ljust(10)} | {'Data de entrada'.ljust(10)} | {'Data de validade'.ljust(10)} | {'Data de saída'.ljust(10)} |")
     
-    for product in products:
-        print(f"{str(product['id']).ljust(10)} | {product['name']} | {product['description']} | {product['entry_date']} | {product['expiration_date']} | {product['exit_date']}")
+    if products:
+        print(f"\n{'Código'.ljust(10)} | {'Nome'.ljust(10)} | {'Descrição'.ljust(10)} | {'Data de entrada'.ljust(10)} | {'Data de validade'.ljust(10)} | {'Data de saída'.ljust(10)} |")
+    
+        for product in products:
+            print(f"{str(product['id']).ljust(10)} | {product['name']} | {product['description']} | {product['entry_date']} | {product['expiration_date']} | {product['exit_date']}")
         
-    input("\nDigite qualquer tecla para voltar para o módulo de estoque")
-    stock_menu()
+        input("\nDigite qualquer tecla para voltar para o módulo de estoque")
+        stock_menu()
+    else:
+        print("Nenhum produto registrado.")
+        sleep(2)
+        stock_menu()
+        return None
 
 def search_product():
     clear_terminal()

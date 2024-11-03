@@ -1,10 +1,10 @@
 from view import display_title, quit, clear_terminal
 from stock import stock_menu
-from employee import employee_menu
+from worker import worker_menu
 from sales import sales_menu
 
 def main():
-    action_list = {"1": stock_menu, "2": employee_menu, "3": sales_menu, "4": quit}
+    action_list = {"1": stock_menu, "2": worker_menu, "3": sales_menu, "4": quit}
     while True:
         action = input("""Seja bem vindo ao WoodStock! escolha uma ação:
 [1] Módulo de Estoque
@@ -20,5 +20,6 @@ def main():
             
     
 if __name__ == "__main__":
+    display_title()
     display_title()
     main()
