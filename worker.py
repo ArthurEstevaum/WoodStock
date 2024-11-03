@@ -19,7 +19,7 @@ def create_worker(name, age, cpf, job):
     # Adiciona o trabalhador ao JSON com CPF no formato padrão
     workers.append({"name": name, "age": age, "cpf": cpf, "job": job})
     write_data("users", workers)
-    print("Registro concluído com sucesso!")
+    print("✅ Registro concluído com sucesso!")
     input("\nDigite qualquer tecla para voltar ao módulo de funcionários")
     worker_menu()
 
@@ -35,10 +35,10 @@ def list_workers():
             print("*" * max_len)
         print("=" * max_len)
         
-        input("\nDigite qualquer tecla para voltar ao módulo de usuários")
+        input("\nDigite qualquer tecla para voltar ao módulo de funcionários")
         worker_menu()
     else:
-        print("Nenhum usuário registrado.")
+        print("✅ Nenhum usuário registrado.")
         sleep(2)
         worker_menu()
         return None
@@ -57,7 +57,7 @@ def update_worker(old_name, new_name, new_age, new_cpf, new_job):
             break
     if updated:
         write_data("users", workers)
-        print("Usuário atualizado com sucesso!")
+        print("✅ Usuário atualizado com sucesso!")
         input("\nDigite qualquer tecla para voltar para o módulo de usuários")
         worker_menu()
     else:
@@ -72,7 +72,7 @@ def remove_worker(name):
     new_workers = [worker for worker in workers if worker['name'] != name]
     if len(new_workers) != len(workers):
         write_data("users", new_workers)
-        print("Usuário removido com sucesso!")
+        print("✅ Usuário removido com sucesso!")
         input("\nDigite qualquer tecla para voltar ao módulo de estoque")
         worker_menu()
     else:
