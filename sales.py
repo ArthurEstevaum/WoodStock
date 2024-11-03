@@ -10,16 +10,16 @@ def validate_date_format(date_str):
     except ValueError:
         return False
 
-def display_product_list():
+def display_sales_list():
     """Exibe a lista de vendas com detalhes formatados."""
     clear_terminal()
-    display_subtitle("Tabela de preços")
+    display_subtitle("Tabela de vendas")
     
     sales_data = load_data("sales")  # Carrega os dados de vendas
     for sale in sales_data:
-        print(f"Código: {sale['id']} | Nome: {sale['name']} | Valor da venda: {sale['value_sales']} | Data da venda: {sale['entry_date']}")
+        print(f"Código: {sale['id']} | Nome: {sale['name']} | Valor da venda: {sale['sale_value']} | Data da venda: {sale['sale_date']}")
         
-    input("Digite qualquer tecla para voltar para o módulo de vendas")
+    input("\nDigite qualquer tecla para voltar para o módulo de vendas")
     sales_menu()  # Chama o menu de vendas
 
 def create_product():
@@ -45,7 +45,7 @@ def create_product():
     input("Digite qualquer tecla para voltar para o módulo de vendas")
     sales_menu()
 
-def update_product():
+def update_sale():
     """Atualiza um registro de venda existente."""
     clear_terminal()
     display_subtitle("Atualização de vendas")
@@ -72,7 +72,7 @@ def update_product():
     input("Digite qualquer tecla para voltar para o módulo de vendas")
     sales_menu()
 
-def remove_product():
+def remove_sale():
     """Remove um registro de venda."""
     clear_terminal()
     display_subtitle("Exclusão de vendas")
@@ -89,15 +89,15 @@ def remove_product():
 def sales_menu():
     """Exibe o menu de opções do módulo de vendas."""
     action_list = {
-        "1": display_product_list,
+        "1": display_sales_list,
         "2": create_product,
-        "3": update_product,
-        "4": remove_product
+        "3": update_sale,
+        "4": remove_sale
     }
     
     while True:
         clear_terminal()
-        display_subtitle("Módulo de venda")
+        display_subtitle("Módulo de vendas")
         
         action = input("""
 [1] Ver lista de vendas
@@ -109,6 +109,7 @@ Escolha uma opção: """)
         
         if action in action_list:
             action_list[action]()
+            break
         elif action == "5":
             clear_terminal()
             break
