@@ -17,7 +17,6 @@ def main():
         else:
             clear_terminal()
             print("A ação escolhida é inválida!")
-            
     
 if __name__ == "__main__":
     display_title()

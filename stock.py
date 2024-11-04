@@ -1,6 +1,17 @@
 from database import load_data, write_data, search_by_id
 from view import display_subtitle, clear_terminal
 from time import sleep
+from datetime import datetime
+
+def validate_date_format(prompt):
+    while True:
+        input_value = input(prompt)
+        try:
+            datetime.strptime(input_value, "%d/%m/%Y")
+            break
+        except ValueError:
+            print("Data inválida. Por favor, tente novamente no formato DD/MM/YYYY.")
+    return input_value
 
 def display_product_list():
     clear_terminal()
@@ -9,10 +20,12 @@ def display_product_list():
     products = load_data("products")
     
     if products:
-        print(f"\n{'Código'.ljust(10)} | {'Nome'.ljust(10)} | {'Descrição'.ljust(10)} | {'Data de entrada'.ljust(10)} | {'Data de validade'.ljust(10)} | {'Data de saída'.ljust(10)} |")
+        print(f"\n{'Código'.ljust(10)} | {'Nome'.ljust(10)} | {'Descrição'.ljust(10)} | {'Data de entrada'.ljust(10)} | {'Data de validade'.ljust(10)}")
     
         for product in products:
-            print(f"{str(product['id']).ljust(10)} | {product['name']} | {product['description']} | {product['entry_date']} | {product['expiration_date']} | {product['exit_date']}")
+            print(f"{str(product['id']).ljust(10)} | {product['name']} | {product['description']} | {product['entry_date']} | {product['expiration_date']}")
+         =======
+        print(f"\n{'Código'.ljust(10)} | {'Nome'.ljust(10)} | {'Descrição'.ljust(10)} | {'Data de entrada'.ljust(10)} | {'Data de validade'.ljust(10)} | {'Data de saída'.ljust(10)} |")
         
         input("\nDigite qualquer tecla para voltar para o módulo de estoque")
         stock_menu()
@@ -36,7 +49,7 @@ def search_product():
         stock_menu()
         return None     
 
-    print(f"\nCódigo: {product['id']} | Nome: {product['name']} | Descrição: {product['description']} | Data de entrada: {product['entry_date']} | Data de validade: {product['expiration_date']} | Data de saída: {product['exit_date']}")
+    print(f"\nCódigo: {product['id']} | Nome: {product['name']} | Descrição: {product['description']} | Data de entrada: {product['entry_date']} | Data de validade: {product['expiration_date']}")
 
     input("\nDigite qualquer tecla para voltar para o módulo de estoque")
     stock_menu()
@@ -49,16 +62,15 @@ def create_product():
 
     name = input("\nDigite o nome do produto: ")
     description = input("Forneça a descrição do produto: ")
-    entry_date = input("Forneça a data de entrada do produto: (DD/MM/AAAA)")
-    expiration_date = input("Forneça a data de validade do produto: (DD/MM/AAAA)")
-    exit_date = input("Forneça a data de saída do produto: (DD/MM/AAAA)")
+    entry_date = validate_date_format("Forneça a data de entrada do produto: (DD/MM/AAAA)")
+    expiration_date = validate_date_format("Forneça a data de validade do produto: (DD/MM/AAAA)")
     
     current_id = products[-1]["id"] + 1 if products != [] else 1
     
-    products.append({"id": current_id, "name": name, "description": description, "entry_date": entry_date, "expiration_date": expiration_date, "exit_date": exit_date})
+    products.append({"id": current_id, "name": name, "description": description, "entry_date": entry_date, "expiration_date": expiration_date})
     write_data("products", products)
     
-    print("\nProduto criado com sucesso!")
+    print("\n✅ Produto criado com sucesso!")
     input("Digite qualquer tecla para voltar para o módulo de estoque")
     stock_menu()
 
@@ -77,30 +89,27 @@ def update_product():
         stock_menu()
         return None
 
-    name = input("Digite o nome do produto (Enter caso não queira atualizar): ")
-    description = input("Forneça a descrição do produto (Enter caso não queira atualizar): ")
-    entry_date = input("Forneça a data de entrada do produto (Enter caso não queira atualizar): (DD/MM/AAAA)")
-    expiration_date = input("Forneça a data de validade do produto (Enter caso não queira atualizar): (DD/MM/AAAA)")
-    exit_date = input("Forneça a data de saída do produto (Enter caso não queira atualizar): (DD/MM/AAAA)")
+    name = input("Digite o nome do produto (Enter caso não queira atualizar): ") or product["name"]
+    description = input("Forneça a descrição do produto (Enter caso não queira atualizar): ") or product["description"]
+    entry_date = input("Forneça a data de entrada do produto (Enter caso não queira atualizar): (DD/MM/AAAA)") or product["entry_date"]
+    expiration_date = input("Forneça a data de validade do produto (Enter caso não queira atualizar): (DD/MM/AAAA)") or product["expiration_date"]
     
     inputs = {
         "name": name, 
         "description": description, 
         "entry_date": entry_date, 
         "expiration_date": expiration_date,
-        "exit_date": exit_date
     }
     
     for input_key, input_value in inputs.items():
-        if input_value:
-            product[input_key] = input_value
+        product[input_key] = input_value
     
     index_of_product = products.index(product)
     products[index_of_product] = product
     
     write_data("products", products)
 
-    print("\nProduto atualizado com sucesso!")
+    print("\n✅ Produto atualizado com sucesso!")
     input("Pressione qualquer tecla para voltar ao módulo de estoque")
     stock_menu()          
 
@@ -122,7 +131,7 @@ def remove_product():
     products.remove(product)
     write_data("products", products)
     
-    print("\nProduto removido com sucesso!")
+    print("\n✅ Produto removido com sucesso!")
     input("Digite qualquer tecla para voltar para o módulo de estoque")
     stock_menu()
 
