@@ -1,5 +1,11 @@
 [
     {
+        "name": "Arthur Estevão",
+        "age": "20",
+        "cpf": "45678912302",
+        "job": "CTO"
+    },
+    {
         "name": "Thays Barbosa",
         "age": "19",
         "cpf": "21343556678",

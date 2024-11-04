@@ -19,6 +19,7 @@ def create_worker(name, age, cpf, job):
     # Adiciona o trabalhador ao JSON com CPF no formato padrão
     workers.append({"name": name, "age": age, "cpf": cpf, "job": job})
     write_data("users", workers)
+
     print("✅ Registro concluído com sucesso!")
     input("\nDigite qualquer tecla para voltar ao módulo de funcionários")
     worker_menu()
@@ -34,11 +35,8 @@ def list_workers():
             print(f"NOME: {worker['name']}, IDADE: {worker['age']}, CPF: {worker['cpf']}, CARGO: {worker['job']}")
             print("*" * max_len)
         print("=" * max_len)
-        
-        input("\nDigite qualquer tecla para voltar ao módulo de funcionários")
-        worker_menu()
     else:
-        print("✅ Nenhum usuário registrado.")
+        print("Nenhum usuário registrado.")
         sleep(2)
         worker_menu()
         return None

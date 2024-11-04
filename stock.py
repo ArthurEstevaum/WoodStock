@@ -24,6 +24,8 @@ def display_product_list():
     
         for product in products:
             print(f"{str(product['id']).ljust(10)} | {product['name']} | {product['description']} | {product['entry_date']} | {product['expiration_date']}")
+         =======
+        print(f"\n{'Código'.ljust(10)} | {'Nome'.ljust(10)} | {'Descrição'.ljust(10)} | {'Data de entrada'.ljust(10)} | {'Data de validade'.ljust(10)} | {'Data de saída'.ljust(10)} |")
         
         input("\nDigite qualquer tecla para voltar para o módulo de estoque")
         stock_menu()
