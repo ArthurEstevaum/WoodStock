@@ -20,5 +20,4 @@ def main():
     
 if __name__ == "__main__":
     display_title()
-    display_title()
     main()

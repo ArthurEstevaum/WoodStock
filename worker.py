@@ -1,6 +1,6 @@
 import re
 from time import sleep
-from view import clear_terminal, display_subtitle
+from view import clear_terminal, display_subtitle 
 from database import load_data, write_data
 
 def format_cpf(cpf):
@@ -41,12 +41,13 @@ def list_workers():
         worker_menu()
         return None
 
-def update_worker(old_name, new_name, new_age, new_cpf, new_job):
+def update_worker(old_cpf, new_name, new_age, new_cpf, new_job):
+    cpf = format_cpf(old_cpf)
     workers = load_data("users")
     #atualiza trabalhador
     updated = False
     for worker in workers:
-        if worker['name'] == old_name:
+        if worker['cpf'] == old_cpf:
             worker['name'] = new_name
             worker['age'] = new_age
             worker['cpf'] = format_cpf(new_cpf)  # Formata o CPF atualizado
@@ -64,10 +65,11 @@ def update_worker(old_name, new_name, new_age, new_cpf, new_job):
         worker_menu()
         return None
 
-def remove_worker(name):
+def remove_worker(cpf):
+    cpf = format_cpf(cpf)
     workers = load_data("users")
     #remove trabalhador
-    new_workers = [worker for worker in workers if worker['name'] != name]
+    new_workers = [worker for worker in workers if worker['cpf'] != cpf]
     if len(new_workers) != len(workers):
         write_data("users", new_workers)
         print("✅ Usuário removido com sucesso!")
@@ -79,12 +81,13 @@ def remove_worker(name):
         worker_menu()
         return None
 
-def search_worker(name):
+def search_worker(cpf):
+    cpf = format_cpf(cpf)
     workers = load_data("users")
     #busca trabalhador
     found = False
     for worker in workers:
-        if worker['name'] == name:
+        if worker['cpf'] == cpf:
             print(f"NOME: {worker['name']}, IDADE: {worker['age']}, CPF: {worker['cpf']}, CARGO: {worker['job']}")
             found = True
             input("\nDigite qualquer tecla para voltar ao módulo de usuários")
@@ -125,7 +128,7 @@ def worker_menu():
             break
         elif action == '3':
             clear_terminal()
-            old_name = input("Nome do usuário para atualizar: ")
+            old_name = input("CPF do usuário para atualizar: ")
             new_name = input("Novo nome: ")
             new_age = input("Nova idade: ")
             new_cpf = input("Novo CPF (formato 000.000.000-00): ")
@@ -134,12 +137,12 @@ def worker_menu():
             break
         elif action == '4':
             clear_terminal()
-            name = input("Nome do usuário para excluir: ")
+            name = input("CPF do usuário para excluir: ")
             remove_worker(name)
             break
         elif action == '5':
             clear_terminal()
-            name = input("Nome do usuário para buscar: ")
+            name = input("CPF do usuário para buscar: ")
             search_worker(name)
             break
         elif action == '6':
