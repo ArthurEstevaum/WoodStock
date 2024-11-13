@@ -14,6 +14,8 @@ def create_worker(name, age, cpf, job):
     # Verifica se o CPF já existe 
     if any(format_cpf(worker['cpf']) == cpf for worker in workers):
         print("CPF já cadastrado! Tente novamente.")
+        sleep(2)
+        worker_menu()
         return None
     
     # Adiciona o trabalhador ao JSON com CPF no formato padrão
