@@ -84,8 +84,7 @@ def remove_worker(cpf):
 
 def search_worker(cpf):
     cpf = format_cpf(cpf)
-    workers = load_data("users")
-    #busca trabalhador
+    workers = load_data("users")
     found = False
     for worker in workers:
         if worker['cpf'] == cpf:
