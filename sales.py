@@ -4,7 +4,7 @@ from database import load_data, write_data, search_by_id
 from view import display_subtitle, clear_terminal
 
 def validate_date_format(date_str):
-    """Verifica se a data está no formato DD/MM/AAAA."""
+
     try:
         datetime.strptime(date_str, "%d/%m/%Y")
         return True
@@ -12,11 +12,11 @@ def validate_date_format(date_str):
         return False
 
 def display_sales_list():
-    """Exibe a lista de vendas com detalhes formatados."""
+    
     clear_terminal()
     display_subtitle("Tabela de vendas")
     
-    sales_data = load_data("sales")  # Carrega os dados de vendas
+    sales_data = load_data("sales")  
     if sales_data:
         for sale in sales_data:
             print(f"\nCódigo: {sale['id']} | Nome: {sale['name']} | Valor da venda: {sale['sale_value']} | Data da venda: {sale['sale_date']}")
@@ -27,10 +27,10 @@ def display_sales_list():
         return None
         
     input("\nDigite qualquer tecla para voltar para o módulo de vendas")
-    sales_menu()  # Chama o menu de vendas
+    sales_menu() 
 
 def create_product():
-    """Cria um novo registro de venda."""
+ 
     clear_terminal()
     display_subtitle("Cadastro de vendas")
     
@@ -54,7 +54,7 @@ def create_product():
     sales_menu()
 
 def update_sale():
-    """Atualiza um registro de venda existente."""
+ 
     clear_terminal()
     display_subtitle("Atualização de vendas")
     
@@ -85,7 +85,7 @@ def update_sale():
     sales_menu()
 
 def remove_sale():
-    """Remove um registro de venda."""
+
     clear_terminal()
     display_subtitle("Exclusão de vendas")
     
@@ -120,7 +120,7 @@ def search_sale():
     sales_menu()
         
 def sales_menu():
-    """Exibe o menu de opções do módulo de vendas."""
+    
     action_list = {
         "1": display_sales_list,
         "2": create_product,

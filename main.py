@@ -13,7 +13,7 @@ def main():
 [4] Sair
 """)
         if action in action_list:
-            action_list[action]() #Chama a ação escolhida
+            action_list[action]()
         else:
             clear_terminal()
             print("A ação escolhida é inválida!")

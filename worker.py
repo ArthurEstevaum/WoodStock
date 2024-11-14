@@ -37,8 +37,6 @@ def list_workers():
             print(f"NOME: {worker['name']}, IDADE: {worker['age']}, CPF: {worker['cpf']}, CARGO: {worker['job']}")
             print("*" * max_len)
         print("=" * max_len)
-        input("\nDigite qualquer tecla para voltar ao módulo de estoque")
-        worker_menu()
     else:
         print("Nenhum usuário registrado.")
         sleep(2)
@@ -46,7 +44,7 @@ def list_workers():
         return None
 
 def update_worker(old_cpf, new_name, new_age, new_cpf, new_job):
-    old_cpf = format_cpf(old_cpf)
+    cpf = format_cpf(old_cpf)
     workers = load_data("users")
     #atualiza trabalhador
     updated = False
