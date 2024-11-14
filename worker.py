@@ -4,21 +4,21 @@ from view import clear_terminal, display_subtitle
 from database import load_data, write_data
 
 def format_cpf(cpf):
-   #remove caracter especial
+  
     return re.sub(r'\D', '', cpf)
 
 def create_worker(name, age, cpf, job):
     workers = load_data("users")
     cpf = format_cpf(cpf)  # Formata o CPF digitado
 
-    # Verifica se o CPF já existe 
+    
     if any(format_cpf(worker['cpf']) == cpf for worker in workers):
         print("CPF já cadastrado! Tente novamente.")
         sleep(2)
         worker_menu()
         return None
     
-    # Adiciona o trabalhador ao JSON com CPF no formato padrão
+   
     workers.append({"name": name, "age": age, "cpf": cpf, "job": job})
     write_data("users", workers)
 
@@ -28,7 +28,7 @@ def create_worker(name, age, cpf, job):
 
 def list_workers():
     workers = load_data("users")
-    #lista trabalhador
+    
     if workers:
         max_len = max(len(f"NOME: {worker['name']}, IDADE: {worker['age']}, CPF: {worker['cpf']}, CARGO: {worker['job']}") for worker in workers)
         display_subtitle("Lista de funcionários")
@@ -52,7 +52,7 @@ def update_worker(old_cpf, new_name, new_age, new_cpf, new_job):
         if worker['cpf'] == old_cpf:
             worker['name'] = new_name
             worker['age'] = new_age
-            worker['cpf'] = format_cpf(new_cpf)  # Formata o CPF atualizado
+            worker['cpf'] = format_cpf(new_cpf) 
             worker['job'] = new_job
             updated = True
             break
@@ -70,7 +70,7 @@ def update_worker(old_cpf, new_name, new_age, new_cpf, new_job):
 def remove_worker(cpf):
     cpf = format_cpf(cpf)
     workers = load_data("users")
-    #remove trabalhador
+    
     new_workers = [worker for worker in workers if worker['cpf'] != cpf]
     if len(new_workers) != len(workers):
         write_data("users", new_workers)
