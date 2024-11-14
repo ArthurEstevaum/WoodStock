@@ -45,8 +45,7 @@ def list_workers():
 
 def update_worker(old_cpf, new_name, new_age, new_cpf, new_job):
     cpf = format_cpf(old_cpf)
-    workers = load_data("users")
-    #atualiza trabalhador
+    workers = load_data("users")
     updated = False
     for worker in workers:
         if worker['cpf'] == old_cpf:
