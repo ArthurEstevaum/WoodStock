@@ -9,7 +9,7 @@ def format_cpf(cpf):
 
 def create_worker(name, age, cpf, job):
     workers = load_data("users")
-    cpf = format_cpf(cpf)  # Formata o CPF digitado
+    cpf = format_cpf(cpf)
 
     
     if any(format_cpf(worker['cpf']) == cpf for worker in workers):
